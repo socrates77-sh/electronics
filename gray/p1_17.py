@@ -56,4 +56,3 @@ Cgs = Cgs1 + Cgs2
 
 fT = gm / (2 * pi * (Cgs + Cgb + Cgd))
 print('fT=%f (GHz)' % (fT * 1e-9))
-

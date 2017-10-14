@@ -27,17 +27,15 @@ VGS = 1.5
 v_tri = arange(0, VGS - Vt0 + 0.05, 0.05)
 i_tri = [(k / 2) * (W / L) * (2 * (VGS - Vt0) * v - v**2) for v in v_tri]
 i_sat = (k / 2) * (W / L) * (VGS - Vt0)**2
-v_tri2 = arange(VGS - Vt0, 3, 0.05)
-i_sat2 = [i_sat for v in v_tri2]
-ax1.plot(v_tri, i_tri, 'r', v_tri2, i_sat2, 'r')
+ax1.plot(v_tri, i_tri, 'r')
+ax1.plot([VGS - Vt0, 3], [i_sat, i_sat], 'r')
 
 VGS = 3
 v_tri = arange(0, VGS - Vt0 + 0.05, 0.05)
 i_tri = [(k / 2) * (W / L) * (2 * (VGS - Vt0) * v - v**2) for v in v_tri]
 i_sat = (k / 2) * (W / L) * (VGS - Vt0)**2
-v_tri2 = arange(VGS - Vt0, 3, 0.05)
-i_sat2 = [i_sat for v in v_tri2]
-ax1.plot(v_tri, i_tri, 'b', v_tri2, i_sat2, 'b')
+ax1.plot(v_tri, i_tri, 'b')
+ax1.plot([VGS - Vt0, 3], [i_sat, i_sat], 'b')
 
 ax1.set_xlim(0, 3)
 ax1.set_ylim(0, 0.006)
@@ -49,25 +47,22 @@ VSB = 0
 Vt = Vt0 + gamma * (sqrt(2 * phi + VSB) - sqrt(2 * phi))
 vx = arange(Vt, 2, 0.01)
 ix = [(k / 2) * (W / L) * (v - Vt)**2 for v in vx]
-vx2 = [Vt, 0, 0.01]
-ix2 = [0 for v in vx2]
-ax2.plot(vx, ix, 'r', vx2, ix2, 'r')
+ax2.plot(vx, ix, 'r')
+ax2.plot([0, Vt], [0, 0],  'r')
 
 VSB = 0.5
 Vt = Vt0 + gamma * (sqrt(2 * phi + VSB) - sqrt(2 * phi))
 vx = arange(Vt, 2, 0.01)
 ix = [(k / 2) * (W / L) * (v - Vt)**2 for v in vx]
-vx2 = [Vt, 0, 0.01]
-ix2 = [0 for v in vx2]
-ax2.plot(vx, ix, 'b', vx2, ix2, 'b')
+ax2.plot(vx, ix, 'b')
+ax2.plot([0, Vt], [0, 0],  'r')
 
 VSB = 1
 Vt = Vt0 + gamma * (sqrt(2 * phi + VSB) - sqrt(2 * phi))
 vx = arange(Vt, 2, 0.01)
 ix = [(k / 2) * (W / L) * (v - Vt)**2 for v in vx]
-vx2 = [Vt, 0, 0.01]
-ix2 = [0 for v in vx2]
-ax2.plot(vx, ix, 'g', vx2, ix2, 'g')
+ax2.plot(vx, ix, 'g')
+ax2.plot([0, Vt], [0, 0],  'r')
 
 ax2.set_xlim(0, 2)
 ax2.set_ylim(0, 0.002)
