@@ -9,7 +9,7 @@ from sympy import *
 from control import *
 
 VT = 26e-3
-Rs = 5e3
+Rs = 0
 RL = 3e3
 rb = 300
 IC = 0.5e-3
@@ -20,10 +20,12 @@ Cu = 0.3e-12
 gm = IC/VT
 rpi = beta/gm
 Cpi = gm/(2*3.1416*fT)-Cu
-R = resp(Rs+rb, rpi)
+# R = resp(Rs+rb, rpi)
+R = rpi
 Cx = gm*R*Cu
 Rx = (1+Cpi/Cu)/gm
 # print(Cx, Rx)
+print(Cx)
 
 
 s, B1 = symbols('s B1')
@@ -43,17 +45,10 @@ N1 = Poly(N0).all_coeffs()
 N2 = [float(k) for k in N1]
 B1b = tf(N2, D2)
 
-# print(D0)
-# print(N0)
-# print(D2)
-# print(N2)
 print(B1b)
 f = np.logspace(3, 10, num=100)
 mag, phase, omega = bode(B1b, dB=False, Hz=True, omega=f)
-# print(np.logspace(3, 8, num=100))
-# bode(B1b, omega=(1e5, 1e10), Hz=True,  dB=False)f
-# print(mag)
-# print(omega)
+
 
 plt.show()
 

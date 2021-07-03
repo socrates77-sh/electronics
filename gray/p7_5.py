@@ -8,28 +8,30 @@ import numpy as np
 from sympy import *
 from control import *
 
-VT = 26e-3
-Rs = 5e3
-RL = 3e3
-rb = 300
-IC = 0.5e-3
-beta = 200
-fT = 500e6
-Cu = 0.3e-12
+Rs = 10e3
+RL = 5e3
+ID = 0.5e-3
+W = 100e-6
+Ldrwn = 2e-6
+Ld = 0.2e-6
+kn = 60e-6
+Cox = 0.7e-3
+Cgd = 14e-15
 
-gm = IC/VT
-rpi = beta/gm
-Cpi = gm/(2*3.1416*fT)-Cu
-R = resp(Rs+rb, rpi)
-Cx = gm*R*Cu
-Rx = (1+Cpi/Cu)/gm
+L = Ldrwn-2*Ld
+gm = (2*kn*W*ID/L)**0.5
+Cgs = 2*W*L*Cox/3+W*Ld*Cox
+
+Cx = gm*Rs*Cgd
+Rx = (1+Cgs/Cgd)/gm
 # print(Cx, Rx)
+print(Cx, Rx, Cgd)
 
 
 s, B1 = symbols('s B1')
 # B1 = resp(1/(Cu*s), 1/gm*(1/(R*Cu*s)+Cpi/Cu+1))
-Z1 = 1/(Cu*s)
-Z2 = 1/(gm*R*Cu*s)+(1+Cpi/Cu)/gm
+Z1 = 1/(Cgd*s)
+Z2 = 1/(Cx*s)+Rx
 B10 = Z1*Z2/(Z1+Z2)
 # B1=(1+s*Rx*Cx)/(s*(Cx+Cu)+s*s*Rx*Cx*Cu)
 B1 = simplify(B10)
@@ -43,17 +45,10 @@ N1 = Poly(N0).all_coeffs()
 N2 = [float(k) for k in N1]
 B1b = tf(N2, D2)
 
-# print(D0)
-# print(N0)
-# print(D2)
-# print(N2)
 print(B1b)
 f = np.logspace(3, 10, num=100)
 mag, phase, omega = bode(B1b, dB=False, Hz=True, omega=f)
-# print(np.logspace(3, 8, num=100))
-# bode(B1b, omega=(1e5, 1e10), Hz=True,  dB=False)f
-# print(mag)
-# print(omega)
+
 
 plt.show()
 
