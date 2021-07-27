@@ -12,14 +12,21 @@ Ld = 0.2e-6
 kn = 60e-6
 Cox = 0.7e-3
 Cgd = 14e-15
+R1 = 900
 
 L = Ldrwn-2*Ld
 gm = (2*kn*W*ID/L)**0.5
 Cgs = 2*W*L*Cox/3+W*Ld*Cox
-f_3db = 1/(2*pi)/(Rs*(Cgs+Cgd*(1+gm*RL)))
-p2 = -1/(2*pi)*(1/(RL*Cgd)+1/(Rs*Cgs)+1/(RL*Cgs)+gm/Cgs)
 
+Av0 = -gm*RL/(1+gm*R1)
+Rgs0 = (Rs+R1)/(1+gm*R1)
+Rgd0 = RL+Rs+gm*Rs*RL/(1+gm*R1)
+
+T0 = Rgs0*Cgs+Rgd0*Cgd
+
+f_3db = 1/(2*pi*T0)
+
+print('Av0=%f' % Av0)
 print('f-3db=%f (MHz)' % (f_3db*1e-6))
-print('p2=%f (MHz)' % (p2*1e-6))
 
-# 185
+# 202
