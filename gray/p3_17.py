@@ -48,3 +48,4 @@ av = -gm_M1 * RL1 / (RL1 + Ri1) * beta / (beta + 1) * \
     gm_Q3 * RL3 / (1 + gm_Q3 * RL3)
 
 print('av=%f' % av)
+
